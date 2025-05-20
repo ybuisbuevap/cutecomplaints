@@ -7,24 +7,26 @@
 </head>
 <body>
 
-  <h1>Tell me what's wrong, my love 💖</h1>
+  <div class="container">
+    <h1>Tell me what's wrong, my love 💖</h1>
 
-  <form id="messageForm">
-    <input type="text" id="name" placeholder="Your name" required />
-    <textarea id="message" placeholder="Type your message..." required></textarea>
-    <button type="submit">Send</button>
-  </form>
+    <form id="messageForm">
+      <input type="text" id="name" placeholder="Your name" required />
+      <textarea id="message" placeholder="Type your message..." required></textarea>
+      <button type="submit">Send</button>
+    </form>
+
+    <div class="confirmation" id="confirmation"></div>
+  </div>
 
   <!-- Firebase SDKs -->
-  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/11.7.3/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/11.7.3/firebase-database.js"></script>
 
   <!-- Firebase config -->
   <script src="firebase-config.js"></script>
 
-  <!-- JS to handle form -->
+  <!-- Submit script -->
   <script src="submit.js"></script>
-
 </body>
 </html>
-
