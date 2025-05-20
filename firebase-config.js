@@ -1,16 +1,20 @@
-// Your Firebase configuration
+// firebase-config.js
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.7.3/firebase-app.js";
+import { getDatabase } from "https://www.gstatic.com/firebasejs/11.7.3/firebase-database.js";
+
 const firebaseConfig = {
-  apiKey: "AIzaSyCJm8WwAnBD2Q05rAmZB5DNDyCp87Ev3CI",
-  authDomain: "cute-website.firebaseapp.com",
-  databaseURL: "https://cute-website-default-rtdb.firebaseio.com",
-  projectId: "cute-website",
-  storageBucket: "cute-website.appspot.com",
-  messagingSenderId: "60870443586",
-  appId: "1:60870443586:web:9a7eeb318133a2b4ee63db",
-  measurementId: "G-YZMCZM60V7"
+  apiKey: "YOUR_API_KEY",
+  authDomain: "your-project.firebaseapp.com",
+  databaseURL: "https://your-project-default-rtdb.firebaseio.com",
+  projectId: "your-project",
+  storageBucket: "your-project.appspot.com",
+  messagingSenderId: "XXXX",
+  appId: "APP_ID"
 };
 
-// Initialize Firebase
-firebase.initializeApp(firebaseConfig);
+const app = initializeApp(firebaseConfig);
+const database = getDatabase(app);
+
+export { database };
 
 
