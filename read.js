@@ -1,13 +1,14 @@
-firebase.database().ref("problems").on("value", (snapshot) => {
-  const container = document.getElementById("messages");
-  container.innerHTML = "";
-  const data = snapshot.val();
-  if (data) {
-    Object.values(data).forEach((entry, index) => {
-      const div = document.createElement("div");
-      div.className = "message";
-      div.innerText = `${index + 1}. ${entry.message}`;
-      container.appendChild(div);
+window.addEventListener("DOMContentLoaded", () => {
+  const messageList = document.getElementById("messageList");
+
+  firebase.database().ref("messages").on("value", (snapshot) => {
+    messageList.innerHTML = ""; // Clear previous messages
+
+    snapshot.forEach((childSnapshot) => {
+      const data = childSnapshot.val();
+      const li = document.createElement("li");
+      li.textContent = `${data.name}: ${data.message}`;
+      messageList.appendChild(li);
     });
-  }
+  });
 });
