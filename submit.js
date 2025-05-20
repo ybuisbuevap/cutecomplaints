@@ -1,3 +1,6 @@
+import { database } from "./firebase-config.js";
+import { ref, push } from "https://www.gstatic.com/firebasejs/11.7.3/firebase-database.js";
+
 document.addEventListener("DOMContentLoaded", function () {
   const form = document.getElementById("messageForm");
 
@@ -9,14 +12,16 @@ document.addEventListener("DOMContentLoaded", function () {
   form.addEventListener("submit", function (e) {
     e.preventDefault();
 
+    const name = document.getElementById("name").value.trim();
     const message = document.getElementById("message").value.trim();
 
-    if (message === "") {
-      alert("Please type your message.");
+    if (name === "" || message === "") {
+      alert("Please fill out both fields.");
       return;
     }
 
-    firebase.database().ref("messages").push({
+    push(ref(database, "messages"), {
+      name: name,
       message: message,
       timestamp: Date.now()
     }).then(() => {
@@ -27,5 +32,6 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 });
+
 
 
