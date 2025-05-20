@@ -1,37 +1,25 @@
-import { database } from "./firebase-config.js";
-import { ref, push } from "https://www.gstatic.com/firebasejs/11.7.3/firebase-database.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getDatabase, ref, push } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
 
-document.addEventListener("DOMContentLoaded", function () {
-  const form = document.getElementById("messageForm");
+import { firebaseConfig } from './firebase-config.js'; // make sure this is the right path
 
-  if (!form) {
-    console.error("Form not found!");
-    return;
-  }
+const app = initializeApp(firebaseConfig);
+const database = getDatabase(app);
 
-  form.addEventListener("submit", function (e) {
-    e.preventDefault();
-
-    const name = document.getElementById("name").value.trim();
-    const message = document.getElementById("message").value.trim();
-
-    if (name === "" || message === "") {
-      alert("Please fill out both fields.");
-      return;
-    }
-
-    push(ref(database, "messages"), {
-      name: name,
-      message: message,
-      timestamp: Date.now()
-    }).then(() => {
-      alert("Message sent successfully 💌");
+const form = document.getElementById('complaintForm');
+form.addEventListener('submit', function(e) {
+  e.preventDefault();
+  const message = document.getElementById('message').value;
+  push(ref(database, 'messages'), { text: message })
+    .then(() => {
+      alert('Message sent!');
       form.reset();
-    }).catch((error) => {
-      alert("Error: " + error.message);
+    })
+    .catch((err) => {
+      alert('Error: ' + err.message);
     });
-  });
 });
+
 
 
 
