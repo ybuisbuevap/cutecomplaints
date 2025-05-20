@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tell Me Your Feelings</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
+</head>
+<body>
+  <div class="container">
+    <h1>Tell Me What's Wrong</h1>
+    <textarea id="problem" placeholder="Type your thoughts here..."></textarea>
+    <button onclick="sendProblem()">Send</button>
+    <p class="confirmation" id="confirmation"></p>
+  </div>
+  <script src="firebase-config.js"></script>
+  <script src="submit.js"></script>
+</body>
+</html>

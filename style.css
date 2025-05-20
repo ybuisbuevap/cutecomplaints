@@ -1,0 +1,57 @@
+body {
+  font-family: 'Comic Sans MS', cursive, sans-serif;
+  background: #ffe6f0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.container {
+  background: white;
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 10px 20px rgba(255, 105, 180, 0.2);
+  width: 90%;
+  max-width: 500px;
+  text-align: center;
+}
+
+textarea {
+  width: 100%;
+  height: 150px;
+  margin: 20px 0;
+  border: 2px solid pink;
+  border-radius: 10px;
+  padding: 10px;
+  font-size: 16px;
+  resize: none;
+}
+
+button {
+  background-color: #ff69b4;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: 0.3s;
+}
+
+button:hover {
+  background-color: #ff1493;
+}
+
+.confirmation {
+  color: green;
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+.message {
+  background-color: #ffe6f0;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 10px;
+}
