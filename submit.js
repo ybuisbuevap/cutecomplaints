@@ -1,12 +1,24 @@
-function sendProblem() {
-  const problem = document.getElementById("problem").value;
-  if (problem.trim() === "") return;
+document.getElementById("messageForm").addEventListener("submit", function (e) {
+  e.preventDefault();
 
-  const timestamp = Date.now();
-  firebase.database().ref("problems/" + timestamp).set({
-    message: problem
+  // Get input values
+  const name = document.getElementById("name").value.trim();
+  const message = document.getElementById("message").value.trim();
+
+  if (name === "" || message === "") {
+    alert("Please fill out both fields.");
+    return;
+  }
+
+  // Save to Firebase
+  firebase.database().ref("messages").push({
+    name: name,
+    message: message,
+    timestamp: Date.now()
   }).then(() => {
-    document.getElementById("confirmation").innerText = "Message sent!";
-    document.getElementById("problem").value = "";
+    alert("Message sent successfully 💌");
+    document.getElementById("messageForm").reset();
+  }).catch((error) => {
+    alert("Error: " + error.message);
   });
-}
+});
