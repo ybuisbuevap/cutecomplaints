@@ -1,10 +1,12 @@
-window.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", function () {
   const messageList = document.getElementById("messageList");
 
-  firebase.database().ref("messages").on("value", (snapshot) => {
-    messageList.innerHTML = ""; // Clear previous messages
+  const dbRef = firebase.database().ref("messages");
 
-    snapshot.forEach((childSnapshot) => {
+  dbRef.on("value", function (snapshot) {
+    messageList.innerHTML = "";
+
+    snapshot.forEach(function (childSnapshot) {
       const data = childSnapshot.val();
       const li = document.createElement("li");
       li.textContent = `${data.name}: ${data.message}`;
