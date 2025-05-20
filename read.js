@@ -1,16 +1,30 @@
 document.addEventListener("DOMContentLoaded", function () {
-  const messageList = document.getElementById("messageList");
+  const form = document.getElementById("messageForm");
 
-  const dbRef = firebase.database().ref("messages");
+  if (!form) {
+    console.error("Form not found!");
+    return;
+  }
 
-  dbRef.on("value", function (snapshot) {
-    messageList.innerHTML = "";
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
 
-    snapshot.forEach(function (childSnapshot) {
-      const data = childSnapshot.val();
-      const li = document.createElement("li");
-      li.textContent = `${data.name}: ${data.message}`;
-      messageList.appendChild(li);
+    const message = document.getElementById("message").value.trim();
+
+    if (message === "") {
+      alert("Please enter a message.");
+      return;
+    }
+
+    firebase.database().ref("messages").push({
+      message: message,
+      timestamp: Date.now()
+    }).then(() => {
+      alert("Message sent successfully!");
+      form.reset();
+    }).catch((error) => {
+      alert("Error: " + error.message);
     });
   });
 });
+
