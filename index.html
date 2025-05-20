@@ -1,28 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Tell Me Your Feelings</title>
-  <link rel="stylesheet" href="style.css" />
-  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
+  <meta charset="UTF-8">
+  <title>Cute Website</title>
 </head>
 <body>
-  <div class="container">
-    <h1>Tell Me What's Wrong</h1>
-    <textarea id="problem" placeholder="Type your thoughts here..."></textarea>
-    <button onclick="sendProblem()">Send</button>
-    <p class="confirmation" id="confirmation"></p>
-  </div>
-  
 
-<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
+  <h1>Tell me what's wrong, my love 💖</h1>
 
+  <form id="messageForm">
+    <input type="text" id="name" placeholder="Your name" required />
+    <textarea id="message" placeholder="Type your message..." required></textarea>
+    <button type="submit">Send</button>
+  </form>
 
-<script src="firebase-config.js"></script>
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/11.7.3/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/11.7.3/firebase-database.js"></script>
 
+  <!-- Firebase config file -->
+  <script src="firebase-config.js"></script>
+
+  <!-- Your JS to send messages -->
+  <script src="submit.js"></script>
+
+</body>
+</html>
 
 <script src="submit.js"></script>
 
