@@ -6,6 +6,9 @@ document.addEventListener("DOMContentLoaded", function () {
   const recordingStatus = document.getElementById("recordingStatus");
   const audioPreview = document.getElementById("audioPreview");
   const lastSeenEl = document.getElementById("lastSeen");
+  const photoInput = document.getElementById("photoInput");
+  const photoPreview = document.getElementById("photoPreview");
+  const removePhotoBtn = document.getElementById("removePhotoBtn");
 
   if (!form) {
     console.error("Form not found!");
@@ -13,11 +16,14 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   const MAX_RECORDING_MS = 60 * 1000; // 1 minute cap, keeps the DB payload sane
+  const MAX_PHOTO_BYTES = 1.5 * 1024 * 1024; // target ~1.5MB after compression
+  const MAX_PHOTO_DIMENSION = 2048; // longest side, px
 
   let mediaRecorder = null;
   let audioChunks = [];
   let recordedBlob = null;
   let recordingTimeout = null;
+  let photoDataUrl = null; // already a Base64 data URL once compressed
 
   // ----- Last seen (read-only, no passphrase needed for this one value) -----
   firebase.database().ref("lastSeen").on("value", (snapshot) => {
@@ -85,6 +91,70 @@ document.addEventListener("DOMContentLoaded", function () {
     discardBtn.style.display = "none";
   });
 
+  // ----- Photo -----
+  function loadImage(file) {
+    return new Promise((resolve, reject) => {
+      const img = new Image();
+      img.onload = () => resolve(img);
+      img.onerror = reject;
+      img.src = URL.createObjectURL(file);
+    });
+  }
+
+  function compressImage(img) {
+    let { width, height } = img;
+    if (width > MAX_PHOTO_DIMENSION || height > MAX_PHOTO_DIMENSION) {
+      if (width > height) {
+        height = Math.round(height * (MAX_PHOTO_DIMENSION / width));
+        width = MAX_PHOTO_DIMENSION;
+      } else {
+        width = Math.round(width * (MAX_PHOTO_DIMENSION / height));
+        height = MAX_PHOTO_DIMENSION;
+      }
+    }
+
+    const canvas = document.createElement("canvas");
+    canvas.width = width;
+    canvas.height = height;
+    const ctx = canvas.getContext("2d");
+    ctx.drawImage(img, 0, 0, width, height);
+
+    // Step quality down until we're under the target size, or give up at a sane floor.
+    let quality = 0.92;
+    let dataUrl = canvas.toDataURL("image/jpeg", quality);
+
+    while (dataUrl.length * 0.75 > MAX_PHOTO_BYTES && quality > 0.4) {
+      quality -= 0.1;
+      dataUrl = canvas.toDataURL("image/jpeg", quality);
+    }
+
+    return dataUrl;
+  }
+
+  photoInput.addEventListener("change", async function () {
+    const file = photoInput.files[0];
+    if (!file) return;
+
+    try {
+      const img = await loadImage(file);
+      photoDataUrl = compressImage(img);
+      photoPreview.src = photoDataUrl;
+      photoPreview.style.display = "block";
+      removePhotoBtn.style.display = "inline-block";
+    } catch (err) {
+      alert("Couldn't process that photo: " + err.message);
+      photoDataUrl = null;
+    }
+  });
+
+  removePhotoBtn.addEventListener("click", function () {
+    photoDataUrl = null;
+    photoPreview.src = "";
+    photoPreview.style.display = "none";
+    removePhotoBtn.style.display = "none";
+    photoInput.value = "";
+  });
+
   function blobToBase64(blob) {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
@@ -100,8 +170,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const message = document.getElementById("message").value.trim();
 
-    if (message === "" && !recordedBlob) {
-      alert("Please type something or record a voice message.");
+    if (message === "" && !recordedBlob && !photoDataUrl) {
+      alert("Please type something, record a voice message, or add a photo.");
       return;
     }
 
@@ -140,10 +210,15 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     }
 
+    if (photoDataUrl) {
+      payload.photo = photoDataUrl;
+    }
+
     firebase.database().ref("messages").push(payload).then(() => {
       alert("Message sent successfully 💌");
       form.reset();
       discardBtn.click();
+      removePhotoBtn.click();
     }).catch((error) => {
       if (error.message && error.message.toLowerCase().includes("permission")) {
         alert("That passphrase doesn't seem right. Clearing it — please try again.");

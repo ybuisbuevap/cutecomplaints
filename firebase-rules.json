@@ -4,7 +4,7 @@
       ".read": "auth != null",
 
       "$messageId": {
-        ".write": "auth != null || (!data.exists() && newData.child('senderHash').val() === 'PUT_HER_PASSPHRASE_HASH_HERE' && (newData.hasChild('message') || newData.hasChild('audio')) && newData.child('timestamp').isNumber() && (!newData.hasChild('message') || (newData.child('message').isString() && newData.child('message').val().length > 0 && newData.child('message').val().length < 5000)) && (!newData.hasChild('audio') || (newData.child('audio').isString() && newData.child('audio').val().length < 3000000)))"
+        ".write": "auth != null || (!data.exists() && newData.child('senderHash').val() === 'f5716d7b7719498419a83c326e7726e657c6e000a0d2a620a0606237feefbc3f' && (newData.hasChild('message') || newData.hasChild('audio') || newData.hasChild('photo')) && newData.child('timestamp').isNumber() && (!newData.hasChild('message') || (newData.child('message').isString() && newData.child('message').val().length > 0 && newData.child('message').val().length < 5000)) && (!newData.hasChild('audio') || (newData.child('audio').isString() && newData.child('audio').val().length < 3000000)) && (!newData.hasChild('photo') || (newData.child('photo').isString() && newData.child('photo').val().length < 2800000)))"
       }
     },
 

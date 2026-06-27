@@ -25,6 +25,14 @@
 
       <audio id="audioPreview" controls style="display: none;"></audio>
 
+      <div class="photo-controls">
+        <label for="photoInput" class="photo-label">📷 Add Photo</label>
+        <input type="file" id="photoInput" accept="image/*" capture="environment" style="display: none;">
+        <button type="button" id="removePhotoBtn" style="display: none;">🗑️ Remove</button>
+      </div>
+
+      <img id="photoPreview" style="display: none;">
+
       <button type="submit">Send</button>
     </form>
 

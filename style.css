@@ -94,4 +94,39 @@ button:hover {
   margin: 10px 0;
 }
 
+.photo-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin: 10px 0;
+  flex-wrap: wrap;
+}
 
+.photo-label {
+  display: inline-block;
+  padding: 8px 14px;
+  font-size: 14px;
+  background-color: #ff69b4;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.photo-label:hover {
+  background-color: #ff1493;
+}
+
+#removePhotoBtn {
+  padding: 8px 14px;
+  font-size: 14px;
+}
+
+#photoPreview {
+  display: block;
+  max-width: 100%;
+  max-height: 300px;
+  margin: 10px auto;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}

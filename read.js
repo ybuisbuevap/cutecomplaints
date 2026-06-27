@@ -50,13 +50,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
   markSeenBtn.addEventListener("click", updateLastSeen);
 
-  function renderMessage({ message, audio, audioType, timestamp, key }) {
+  function renderMessage({ message, audio, audioType, photo, timestamp, key }) {
     const li = document.createElement("li");
     const date = new Date(timestamp).toLocaleString();
 
     let contentHtml = "";
     if (message) {
       contentHtml += `<div class="message-text">${escapeHtml(message)}</div>`;
+    }
+    if (photo) {
+      contentHtml += `<img class="message-photo" src="${photo}" onclick="openLightbox('${key}')">`;
     }
     if (audio) {
       contentHtml += `<audio controls src="${audio}" type="${audioType || "audio/webm"}"></audio>`;
@@ -69,6 +72,16 @@ document.addEventListener("DOMContentLoaded", function () {
     `;
     return li;
   }
+
+  window.openLightbox = function (key) {
+    const img = document.querySelector(`#messageList img[onclick*="${key}"]`);
+    if (!img) return;
+    const overlay = document.createElement("div");
+    overlay.className = "lightbox-overlay";
+    overlay.innerHTML = `<img src="${img.src}">`;
+    overlay.addEventListener("click", () => overlay.remove());
+    document.body.appendChild(overlay);
+  };
 
   function escapeHtml(str) {
     const div = document.createElement("div");
