@@ -105,12 +105,14 @@ button:hover {
 
 .photo-label {
   display: inline-block;
-  padding: 8px 14px;
-  font-size: 14px;
+  padding: 10px 20px;
+  font-size: 16px;
   background-color: #ff69b4;
   color: white;
-  border-radius: 8px;
+  border: none;
+  border-radius: 12px;
   cursor: pointer;
+  transition: 0.3s;
 }
 
 .photo-label:hover {
@@ -118,8 +120,8 @@ button:hover {
 }
 
 #removePhotoBtn {
-  padding: 8px 14px;
-  font-size: 14px;
+  padding: 10px 20px;
+  font-size: 16px;
 }
 
 #photoPreview {
