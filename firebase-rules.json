@@ -1,0 +1,19 @@
+{
+  "rules": {
+    "messages": {
+      ".read": "auth != null",
+
+      "$messageId": {
+        ".write": "auth != null || (!data.exists() && newData.child('senderHash').val() === 'PUT_HER_PASSPHRASE_HASH_HERE' && (newData.hasChild('message') || newData.hasChild('audio')) && newData.child('timestamp').isNumber() && (!newData.hasChild('message') || (newData.child('message').isString() && newData.child('message').val().length > 0 && newData.child('message').val().length < 5000)) && (!newData.hasChild('audio') || (newData.child('audio').isString() && newData.child('audio').val().length < 3000000)))"
+      }
+    },
+
+    "lastSeen": {
+      ".read": true,
+      ".write": "auth != null && newData.isNumber()"
+    },
+
+    ".read": false,
+    ".write": false
+  }
+}

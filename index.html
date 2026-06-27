@@ -11,8 +11,20 @@
   <div class="container">
     <h1>What's on your Heart, My Love?💖</h1>
 
+    <div id="lastSeen" class="last-seen">Checking when he last saw your messages...</div>
+
     <form id="messageForm">
-      <textarea id="message" placeholder="Type your message..." required></textarea>
+      <textarea id="message" placeholder="Type your message... (optional if you record audio)"></textarea>
+
+      <div class="audio-controls">
+        <button type="button" id="recordBtn">🎙️ Record</button>
+        <button type="button" id="stopBtn" disabled>⏹️ Stop</button>
+        <button type="button" id="discardBtn" style="display: none;">🗑️ Discard</button>
+        <span id="recordingStatus"></span>
+      </div>
+
+      <audio id="audioPreview" controls style="display: none;"></audio>
+
       <button type="submit">Send</button>
     </form>
 
@@ -26,11 +38,10 @@
   <!-- Firebase config -->
   <script src="firebase-config.js"></script>
 
+  <!-- Passphrase helper -->
+  <script src="auth.js"></script>
+
   <!-- Submit script -->
   <script src="submit.js"></script>
 </body>
 </html>
-
-
-
-

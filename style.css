@@ -56,3 +56,42 @@ button:hover {
   border-radius: 10px;
 }
 
+.last-seen {
+  font-size: 13px;
+  color: #b5006d;
+  background: #fff0f6;
+  padding: 8px 12px;
+  border-radius: 10px;
+  margin-bottom: 16px;
+}
+
+.audio-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin: 10px 0;
+  flex-wrap: wrap;
+}
+
+.audio-controls button {
+  padding: 8px 14px;
+  font-size: 14px;
+}
+
+.audio-controls button:disabled {
+  background-color: #ffb6d9;
+  cursor: not-allowed;
+}
+
+#recordingStatus {
+  font-size: 13px;
+  color: #d63384;
+}
+
+#audioPreview {
+  width: 100%;
+  margin: 10px 0;
+}
+
+

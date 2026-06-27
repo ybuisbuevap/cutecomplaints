@@ -50,15 +50,95 @@
       font-weight: bold;
       cursor: pointer;
     }
+
+    #loginBox {
+      max-width: 320px;
+      margin: 60px auto;
+      background: white;
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 10px 20px rgba(255, 105, 180, 0.15);
+      text-align: center;
+    }
+
+    #loginBox input {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0;
+      border: 2px solid pink;
+      border-radius: 8px;
+      box-sizing: border-box;
+      font-size: 14px;
+    }
+
+    #loginBox button {
+      background-color: #ff69b4;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      font-size: 16px;
+      width: 100%;
+      margin-top: 8px;
+    }
+
+    #loginBox button:hover {
+      background-color: #ff1493;
+    }
+
+    #loginError {
+      color: #d63384;
+      font-size: 13px;
+      margin-top: 8px;
+      min-height: 16px;
+    }
+
+    .message-text {
+      margin-right: 30px;
+    }
+
+    li audio {
+      width: 100%;
+      margin-top: 8px;
+      display: block;
+    }
+
+    #markSeenBtn {
+      display: block;
+      margin: 0 auto 20px;
+      background-color: #ff69b4;
+      color: white;
+      padding: 10px 18px;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    #markSeenBtn:hover {
+      background-color: #ff1493;
+    }
   </style>
 </head>
 <body>
   <h1>Messages from My Love 💬</h1>
-  <ul id="messageList"></ul>
+
+  <div id="loginBox">
+    <p>This page is just for you 🔒</p>
+    <input type="email" id="loginEmail" placeholder="Email" autocomplete="username">
+    <input type="password" id="loginPassword" placeholder="Password" autocomplete="current-password">
+    <button id="loginBtn">Log in</button>
+    <div id="loginError"></div>
+  </div>
+
+  <button id="markSeenBtn" style="display: none;">Mark as seen 👀</button>
+  <ul id="messageList" style="display: none;"></ul>
 
   <!-- Firebase SDKs -->
   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
 
   <!-- Your Firebase Config -->
   <script src="firebase-config.js"></script>
@@ -67,5 +147,3 @@
   <script src="read.js"></script>
 </body>
 </html>
-
-
