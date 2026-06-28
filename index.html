@@ -26,8 +26,12 @@
       <audio id="audioPreview" controls style="display: none;"></audio>
 
       <div class="photo-controls">
-        <label for="photoInput" class="photo-label">📷 Add Photo</label>
+        <label for="photoInput" class="photo-label">🖼️ Gallery</label>
         <input type="file" id="photoInput" accept="image/*" style="display: none;">
+
+        <label for="cameraInput" class="photo-label">📷 Camera</label>
+        <input type="file" id="cameraInput" accept="image/*" capture="environment" style="display: none;">
+
         <button type="button" id="removePhotoBtn" style="display: none;">🗑️ Remove</button>
       </div>
 

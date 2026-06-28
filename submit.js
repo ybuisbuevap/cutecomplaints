@@ -7,6 +7,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const audioPreview = document.getElementById("audioPreview");
   const lastSeenEl = document.getElementById("lastSeen");
   const photoInput = document.getElementById("photoInput");
+  const cameraInput = document.getElementById("cameraInput");
   const photoPreview = document.getElementById("photoPreview");
   const removePhotoBtn = document.getElementById("removePhotoBtn");
 
@@ -131,8 +132,7 @@ document.addEventListener("DOMContentLoaded", function () {
     return dataUrl;
   }
 
-  photoInput.addEventListener("change", async function () {
-    const file = photoInput.files[0];
+  async function handlePhotoFile(file) {
     if (!file) return;
 
     try {
@@ -145,6 +145,14 @@ document.addEventListener("DOMContentLoaded", function () {
       alert("Couldn't process that photo: " + err.message);
       photoDataUrl = null;
     }
+  }
+
+  photoInput.addEventListener("change", function () {
+    handlePhotoFile(photoInput.files[0]);
+  });
+
+  cameraInput.addEventListener("change", function () {
+    handlePhotoFile(cameraInput.files[0]);
   });
 
   removePhotoBtn.addEventListener("click", function () {
@@ -153,6 +161,7 @@ document.addEventListener("DOMContentLoaded", function () {
     photoPreview.style.display = "none";
     removePhotoBtn.style.display = "none";
     photoInput.value = "";
+    cameraInput.value = "";
   });
 
   function blobToBase64(blob) {
